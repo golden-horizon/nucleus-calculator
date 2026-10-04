@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nucleus Calculator</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <main class="calculator">
+    <h1>Calculator</h1>
+    <form id="calculator-form">
+      <label for="first-number">First number</label>
+      <input id="first-number" name="firstNumber" type="number" step="any" required>
+
+      <label for="operation">Operation</label>
+      <select id="operation" name="operation">
+        <option value="add">Addition (+)</option>
+        <option value="subtract">Subtraction (−)</option>
+        <option value="multiply">Multiplication (×)</option>
+        <option value="divide">Division (÷)</option>
+      </select>
+
+      <label for="second-number">Second number</label>
+      <input id="second-number" name="secondNumber" type="number" step="any" required>
+
+      <button type="submit">Calculate</button>
+    </form>
+    <p id="result" class="result" role="status" aria-live="polite">Enter two numbers to begin.</p>
+  </main>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
