@@ -40,3 +40,43 @@ Created a Flask calculator with a plain HTML, CSS, and JavaScript frontend. Adde
 ### Output summary
 
 Reviewed the repository for secret-like values and unnecessary generated files. Confirmed that the virtual environment, pytest cache, and Python bytecode are ignored. Updated this prompt log, reran the automated tests, committed the intended project files, and attempted to push the commit to the existing GitHub repository. The final assistant response reports the actual test and push results.
+
+## Prompt 3
+
+> Perform a brief security review of this calculator. Check for eval/exec, exposed secrets, backend input validation, and Flask debug settings. Report what you find and any necessary fixes. Keep the review within this small assessment’s scope.
+
+### Full user-visible response
+
+Security review completed.
+
+- **`eval` / `exec`:** No use found. Operations use a fixed allowlist of four functions.
+- **Secrets:** No API keys, tokens, passwords, private keys, or other credentials found in application files.
+- **Input validation:** Appropriate for this assessment. The backend:
+  - Requires a JSON object
+  - Rejects missing, invalid, boolean, infinite, and `NaN` values
+  - Allows only the four supported operations
+  - Rejects division by zero
+  - Returns clear HTTP 400 errors without exposing exception details
+- **Flask debug mode:** [app.py](C:/Users/navid/Desktop/Projects/nucleus-calculator/app.py:47) contains `app.run(debug=True)`. This is acceptable only for local development on the default loopback address. Flask’s interactive debugger must never be exposed publicly.
+
+Necessary fix before deployment:
+
+```python
+app.run(debug=False)
+```
+
+Alternatively, omit the argument and enable debugging only through a local environment setting when needed.
+
+No other security changes appear necessary within this small assessment’s scope. I added the exact review prompt and a labeled output summary to [AI_PROMPTS.md](C:/Users/navid/Desktop/Projects/nucleus-calculator/AI_PROMPTS.md). That log update is currently local and uncommitted; application code was not changed.
+
+## Prompt 4
+
+> Change app.run(debug=True) to app.run(debug=False). Run the tests again.
+>
+> Include this security-review prompt and the full user-visible response in AI_PROMPTS.md, not just a summary.
+>
+> Commit and push the code and AI log changes to the existing repository.
+
+### Output summary
+
+Changed the direct Flask development entry point to run with debug mode disabled, reran the complete automated test suite, updated the prompt log with the prior security-review prompt and full response, and committed and pushed the requested changes. The final assistant response reports the actual test and push results.
